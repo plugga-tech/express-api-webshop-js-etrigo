@@ -1,5 +1,6 @@
 const express = require('express')
 const router = express.Router()
+const CryptoJS = require('crypto-js')
 
 /* Get all users excluding password. */
 router.get('/users', (req, res) => {
@@ -13,9 +14,16 @@ router.post('/users', (req, res) => {
 
 /* Create new user */
 router.post('/users/add', (req, res) => {
+  const newUser = { ...req.body }
+  const encryptedPassword = CryptoJS.AES.encrypt(
+    req.body.password,
+    process.env.PASSWORD_SALT
+  ).toString()
+  newUser.password = encryptedPassword
+
   req.app.locals.db
     .collection('users')
-    .insertOne(req.body)
+    .insertOne(newUser)
     .then(result => {
       console.log('New user added to collection', result)
       res.status(200).json(result)
@@ -28,6 +36,11 @@ router.post('/users/add', (req, res) => {
 
 /* Login user */
 router.post('/users/login', (req, res) => {
+  // const password = CryptoJS.AES.decrypt(
+  //   newUser,
+  //   process.env.PASSWORD_SALT
+  // ).toString(CryptoJS.enc.Utf8)
+  // console.log(password)
   res.send('respond with a resource')
 })
 
