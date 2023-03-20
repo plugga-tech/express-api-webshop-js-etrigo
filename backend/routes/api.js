@@ -14,24 +14,29 @@ router.post('/users', (req, res) => {
 
 /* Create new user */
 router.post('/users/add', (req, res) => {
-  const newUser = { ...req.body }
-  const encryptedPassword = CryptoJS.AES.encrypt(
-    req.body.password,
-    process.env.PASSWORD_SALT
-  ).toString()
-  newUser.password = encryptedPassword
+  if (req.headers.authorization === process.env.API_KEY) {
+    const newUser = { ...req.body }
+    const encryptedPassword = CryptoJS.AES.encrypt(
+      req.body.password,
+      process.env.PASSWORD_SALT
+    ).toString()
+    newUser.password = encryptedPassword
 
-  req.app.locals.db
-    .collection('users')
-    .insertOne(newUser)
-    .then(result => {
-      console.log('New user added to collection', result)
-      res.status(200).json(result)
-    })
-    .catch(error => {
-      console.log('Could not add user to collection', error)
-      res.status(500).json({ error: error.details[0].message })
-    })
+    req.app.locals.db
+      .collection('users')
+      .insertOne(newUser)
+      .then(result => {
+        console.log('New user added to collection', result)
+        res.status(200).json(result)
+      })
+      .catch(error => {
+        console.log('Could not add user to collection', error)
+        res.status(500).json({ error: error.details[0].message })
+      })
+  } else {
+    console.log('Not a autorizeds request, bad api key')
+    res.status(401).json({ message: 'Not authorized, bad api key' })
+  }
 })
 
 /* Login user */
