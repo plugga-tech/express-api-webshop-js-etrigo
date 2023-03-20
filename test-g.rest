@@ -36,7 +36,7 @@ Content-Type: application/json
 
 {
   "email": "// EN USER EMAIL",
-  "password": "// EN USER EMAIL"
+  "password": "// EN USER PASSWORD"
 }
 
 ###
