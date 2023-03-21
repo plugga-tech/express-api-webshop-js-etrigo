@@ -9,7 +9,6 @@ router.get('/', (req, res) => {
     .toArray()
     .then(categories => {
       if (categories.length > 0) {
-        console.log(categories)
         res.status(200).json(categories)
       } else {
         res.status(400).json({ error: 'No categories found' })
