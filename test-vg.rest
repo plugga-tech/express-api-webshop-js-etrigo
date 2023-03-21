@@ -84,7 +84,7 @@ POST http://localhost:3000/api/categories/add
 Content-Type: application/json
 
 {
-  "name": "Kategori 2",
+  "name": "Kategori 1",
   "token": "1234key1234"
 }
 

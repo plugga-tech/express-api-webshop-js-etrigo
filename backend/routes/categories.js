@@ -1,9 +1,23 @@
 const express = require('express')
 const router = express.Router()
 
-// get all categories
+// get all categories - DONE
 router.get('/', (req, res) => {
-  res.status(200).json({ response: 'respond' })
+  req.app.locals.db
+    .collection('categories')
+    .find()
+    .toArray()
+    .then(categories => {
+      if (categories.length > 0) {
+        console.log(categories)
+        res.status(200).json(categories)
+      } else {
+        res.status(400).json({ error: 'No categories found' })
+      }
+    })
+    .catch(error => {
+      res.status(500).json(error)
+    })
 })
 
 // add new category - DONE

@@ -55,7 +55,7 @@ router.post('/add', (req, res) => {
     .then(user => {
       if (user) {
         res
-          .status(400)
+          .status(409)
           .json({ error: 'User with that email already exists in database' })
       } else {
         const newUser = { ...req.body }
