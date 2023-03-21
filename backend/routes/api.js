@@ -49,21 +49,35 @@ router.post('/users', (req, res) => {
 
 /* Create new user - DONE */
 router.post('/users/add', (req, res) => {
-  const newUser = { ...req.body }
-  const encryptedPassword = CryptoJS.AES.encrypt(
-    req.body.password,
-    process.env.PASSWORD_SALT
-  ).toString()
-  newUser.password = encryptedPassword
-
   req.app.locals.db
     .collection('users')
-    .insertOne(newUser)
-    .then(result => {
-      res.status(200).json(result)
+    .findOne({ email: req.body.email })
+    .then(user => {
+      if (user) {
+        res
+          .status(400)
+          .json({ error: 'User with that email already exists in database' })
+      } else {
+        const newUser = { ...req.body }
+        const encryptedPassword = CryptoJS.AES.encrypt(
+          req.body.password,
+          process.env.PASSWORD_SALT
+        ).toString()
+        newUser.password = encryptedPassword
+
+        req.app.locals.db
+          .collection('users')
+          .insertOne(newUser)
+          .then(result => {
+            res.status(200).json(result)
+          })
+          .catch(error => {
+            res.status(500).json(error)
+          })
+      }
     })
     .catch(error => {
-      res.status(500).json({ error: error.details[0].message })
+      res.status(500).json(error)
     })
 })
 
