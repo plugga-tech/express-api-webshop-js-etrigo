@@ -10,7 +10,7 @@ router.get('/', (req, res) => {
     .find()
     .toArray()
     .then(users => {
-      if (users) {
+      if (users.length > 0) {
         const censoredUsers = users.map(user => {
           const { password, ...theRest } = user
           return theRest
