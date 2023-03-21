@@ -4,7 +4,7 @@ const CryptoJS = require('crypto-js')
 const { ObjectId } = require('mongodb')
 
 /* Get all users excluding password. - DONE */
-router.get('/users', (req, res) => {
+router.get('/', (req, res) => {
   req.app.locals.db
     .collection('users')
     .find()
@@ -26,7 +26,7 @@ router.get('/users', (req, res) => {
 })
 
 /* Get specific user object. - DONE */
-router.post('/users', (req, res) => {
+router.post('/', (req, res) => {
   try {
     const id = new ObjectId(req.body.id)
     req.app.locals.db
@@ -48,7 +48,7 @@ router.post('/users', (req, res) => {
 })
 
 /* Create new user - DONE */
-router.post('/users/add', (req, res) => {
+router.post('/add', (req, res) => {
   req.app.locals.db
     .collection('users')
     .findOne({ email: req.body.email })
@@ -81,8 +81,8 @@ router.post('/users/add', (req, res) => {
     })
 })
 
-/* Login user */
-router.post('/users/login', (req, res) => {
+/* Login user - DONE */
+router.post('/login', (req, res) => {
   req.app.locals.db
     .collection('users')
     .findOne({ email: req.body.email })
