@@ -69,12 +69,26 @@ router.post('/users/add', (req, res) => {
 
 /* Login user */
 router.post('/users/login', (req, res) => {
-  // const password = CryptoJS.AES.decrypt(
-  //   newUser,
-  //   process.env.PASSWORD_SALT
-  // ).toString(CryptoJS.enc.Utf8)
-  // console.log(password)
-  res.send('respond with a resource')
+  req.app.locals.db
+    .collection('users')
+    .findOne({ email: req.body.email })
+    .then(user => {
+      if (user) {
+        const decryptedPassword = CryptoJS.AES.decrypt(
+          user.password,
+          process.env.PASSWORD_SALT
+        ).toString(CryptoJS.enc.Utf8)
+        if (req.body.password === decryptedPassword) {
+          console.log(user._id)
+          res.status(200).json({ id: user._id })
+        } else {
+          res.status(401).json({ error: 'password dont match' })
+        }
+      }
+    })
+    .catch(error => {
+      res.status(500).json({ error: error.details[0].message })
+    })
 })
 
 module.exports = router
