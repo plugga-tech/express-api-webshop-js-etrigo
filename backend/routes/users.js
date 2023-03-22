@@ -8,14 +8,11 @@ router.get('/', (req, res) => {
   req.app.locals.db
     .collection('users')
     .find()
+    .project({ password: false })
     .toArray()
     .then(users => {
       if (users.length > 0) {
-        const censoredUsers = users.map(user => {
-          const { password, ...theRest } = user
-          return theRest
-        })
-        res.status(200).json(censoredUsers)
+        res.status(200).json(users)
       } else {
         res.status(400).json({ error: 'No users found' })
       }
