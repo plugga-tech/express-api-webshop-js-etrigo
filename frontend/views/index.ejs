@@ -2,10 +2,26 @@
 <html>
   <head>
     <title><%= title %></title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel="stylesheet" href="/stylesheets/style.css" />
   </head>
   <body>
-    <h1><%= title %></h1>
-    <p>Welcome to <%= title %></p>
+    <header>
+      <% if (is_logged_in) { %>
+      <a href="/logout">Logout</a>
+      <a href="/cart">Your shopping cart</a>
+      <% } else { %>
+      <a href="/register">Become member</a>
+      <form action="/login" method="post">
+        <input type="email" name="email" placeholder="Enter email" />
+        <input type="password" name="password" placeholder="Enter password" />
+        <input type="submit" value="Login" />
+      </form>
+      <% } %> <% if (msg) { %>
+      <div><%= msg %></div>
+      <% } %>
+    </header>
+    <section>
+      <!-- if logged in loop over categories and add products -->
+    </section>
   </body>
 </html>

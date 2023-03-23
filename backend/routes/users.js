@@ -80,6 +80,7 @@ router.post('/add', (req, res) => {
 
 /* Login user - DONE */
 router.post('/login', (req, res) => {
+  console.log(req.body)
   req.app.locals.db
     .collection('users')
     .findOne({ email: req.body.email })
