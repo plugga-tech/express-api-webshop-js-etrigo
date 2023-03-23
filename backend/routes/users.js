@@ -91,7 +91,7 @@ router.post('/login', (req, res) => {
         ).toString(CryptoJS.enc.Utf8)
         if (req.body.password === decryptedPassword) {
           console.log(user._id)
-          res.status(200).json({ id: user._id })
+          res.status(200).json({ id: user._id, name: user.name })
         } else {
           res.status(401).json({ error: 'password dont match' })
         }
