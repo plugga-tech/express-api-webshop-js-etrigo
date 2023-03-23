@@ -80,7 +80,6 @@ router.post('/add', (req, res) => {
 
 /* Login user - DONE */
 router.post('/login', (req, res) => {
-  console.log(req.body)
   req.app.locals.db
     .collection('users')
     .findOne({ email: req.body.email })
@@ -96,6 +95,8 @@ router.post('/login', (req, res) => {
         } else {
           res.status(401).json({ error: 'password dont match' })
         }
+      } else {
+        res.status(401).json({ error: 'No user with that email found' })
       }
     })
     .catch(error => {
