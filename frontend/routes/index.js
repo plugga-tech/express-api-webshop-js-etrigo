@@ -5,7 +5,6 @@ const router = express.Router()
 router.get('/', (req, res) => {
   const user = req.signedCookies['logged_in_user']
   let is_logged_in
-  console.log(user)
   if (user) {
     req.flash('login_msg', `You are logged in ${user.name}`)
     is_logged_in = true

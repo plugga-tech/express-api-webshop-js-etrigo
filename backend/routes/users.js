@@ -66,6 +66,7 @@ router.post('/add', (req, res) => {
           .collection('users')
           .insertOne(newUser)
           .then(result => {
+            result.name = newUser.name
             res.status(200).json(result)
           })
           .catch(error => {
