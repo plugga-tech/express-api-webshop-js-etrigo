@@ -2,7 +2,7 @@ const express = require('express')
 const { ObjectId } = require('mongodb')
 const router = express.Router()
 
-// GET get all orders
+// GET get all orders - DONE
 router.get('/all/:token', (req, res) => {
   if (req.params.token === process.env.API_KEY) {
     req.app.locals.db
@@ -21,7 +21,7 @@ router.get('/all/:token', (req, res) => {
   }
 })
 
-// POST add new order
+// POST add new order - DONE
 router.post('/add', (req, res) => {
   // kontrollera att id föruser och produklt är korrect format
   let userId
@@ -105,7 +105,23 @@ router.post('/add', (req, res) => {
 
 // POST get order from specific user
 router.post('/user', (req, res) => {
-  res.status(200).json({ response: 'respond' })
+  if (process.env.API_KEY === req.body.token) {
+    req.app.locals.db
+      .collection('orders')
+      .findOne({ user: req.body.user })
+      .then(user => {
+        if (user) {
+          res.status(200).json(user)
+        } else {
+          res.status(400).json({ error: 'No order for user found' })
+        }
+      })
+      .catch(error => {
+        res.status(500).json(error)
+      })
+  } else {
+    res.status(401).json({ error: 'Wrong api key' })
+  }
 })
 
 module.exports = router
