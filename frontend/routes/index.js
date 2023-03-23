@@ -1,11 +1,11 @@
-var express = require('express')
-var router = express.Router()
+const express = require('express')
+const router = express.Router()
 
 /* GET home page. */
-router.get('/', function (req, res, next) {
-  const user = req.cookies['logged_in_user']
-  console.log(user)
+router.get('/', (req, res) => {
+  const user = req.signedCookies['logged_in_user']
   let is_logged_in
+  console.log(user)
   if (user) {
     req.flash('login_msg', `You are logged in ${user.name}`)
     is_logged_in = true

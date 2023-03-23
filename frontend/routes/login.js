@@ -13,7 +13,11 @@ router.post('/', (req, res) => {
     .then(response => response.json())
     .then(data => {
       if (data.id) {
-        res.cookie('logged_in_user', { id: data.id, name: data.name })
+        res.cookie(
+          'logged_in_user',
+          { id: data.id, name: data.name },
+          { signed: true }
+        )
         req.flash('login_msg', `You have been logged in ${data.name}`)
         res.redirect('/')
       } else {
