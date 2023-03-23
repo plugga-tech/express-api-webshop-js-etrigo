@@ -100,12 +100,12 @@ GET http://localhost:3000/api/categories
 //
 
 // HÄMTA ALLA ORDERS, KEY MÅSTE ANGES FÖR ATT FÅ TILLGÅNG TILL ORDERS
-GET http://localhost:3000/api/orders/all/ // API TOKEN
+GET http://localhost:3000/api/orders/all/1234key1234
 
 ###
 
 // HÄMTA ALLA ORDER, FEL KEY // SKALL MISSLYCKAS
-GET http://localhost:3000/api/orders/all/ // TEST MED FEL TOKEN
+GET http://localhost:3000/api/orders/all/11112222333
 
 ###
 
@@ -118,11 +118,11 @@ Content-Type: application/json
   "products": [
     {
       "productId": "641a23b653e053b318e13894",
-      "quantity": 2
+      "quantity": 1
     },
     {
       "productId": "641a23fc53e053b318e13895",
-      "quantity": 5
+      "quantity": 1
     }
   ]
 }

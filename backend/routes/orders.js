@@ -3,14 +3,26 @@ const { ObjectId } = require('mongodb')
 const router = express.Router()
 
 // GET get all orders
-router.get('/all', (req, res) => {
-  res.status(200).json({ response: 'respond' })
+router.get('/all/:token', (req, res) => {
+  if (req.params.token === process.env.API_KEY) {
+    req.app.locals.db
+      .collection('orders')
+      .find()
+      .toArray()
+      .then(orders => {
+        if (orders.length > 0) {
+          res.status(200).json(orders)
+        } else {
+          res.status(400).json({ error: 'No orders found' })
+        }
+      })
+  } else {
+    res.status(401).json({ error: 'Wrong api key' })
+  }
 })
 
 // POST add new order
 router.post('/add', (req, res) => {
-  const orderStatus = { user: false, products: false }
-
   // kontrollera att id föruser och produklt är korrect format
   let userId
   let productId
@@ -29,7 +41,6 @@ router.post('/add', (req, res) => {
     }
   })
 
-  // kontrollera att user och alla produkter finns
   req.app.locals.db
     .collection('users')
     .findOne({ _id: userId })
