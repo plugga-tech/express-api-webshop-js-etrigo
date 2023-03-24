@@ -8,7 +8,9 @@
     <header>
       <% if (is_logged_in) { %>
       <a href="/logout">Logout</a>
-      <a href="/cart">Your shopping cart</a>
+      <a href="/cart"
+        >Your shopping cart <% if (cart) { %>(<%= cart %>)<% } %></a
+      >
       <% } else { %>
       <a href="/register">Become member</a>
       <form action="/login" method="post">
@@ -20,8 +22,40 @@
       <div><%= msg %></div>
       <% } %>
     </header>
-    <section>
-      <!-- if logged in loop over categories and add products -->
+    <% if (is_logged_in) { %>
+    <section class="categories">
+      <% categories.forEach(category => { %>
+      <div class="category-container">
+        <h1><%= category.name %></h1>
+        <div class="products">
+          <% category.products.forEach(product => { %>
+          <div class="product-container">
+            <img src="/images/placeholder-image.jpg" />
+            <h3><%= product.name %></h3>
+            <p>Pris <%= product.price %> kr</p>
+            <form action="addToCart" method="post" class="buy-form">
+              <input
+                type="text"
+                name="productId"
+                id="productId"
+                value="<%= product._id %>"
+                hidden
+              />
+              <input
+                type="number"
+                name="quantity"
+                id="quantity"
+                value="1"
+                min="1"
+              />
+              <input type="submit" value="Köp" />
+            </form>
+          </div>
+          <% }) %>
+        </div>
+      </div>
+      <% }) %>
     </section>
+    <% } %>
   </body>
 </html>
