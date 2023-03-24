@@ -36,6 +36,13 @@
             <form action="addToCart" method="post" class="buy-form">
               <input
                 type="text"
+                name="name"
+                id="name"
+                value="<%= product.name %>"
+                hidden
+              />
+              <input
+                type="text"
                 name="productId"
                 id="productId"
                 value="<%= product._id %>"

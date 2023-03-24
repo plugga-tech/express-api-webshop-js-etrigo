@@ -4,11 +4,14 @@ const router = express.Router()
 /* GET home page. */
 router.get('/', async (req, res) => {
   const user = req.signedCookies['logged_in_user']
-  const cart = req.signedCookies['cart']
-  const productsInCart = cart.products.reduce(
-    (prev, current) => prev + parseInt(current.quantity),
-    0
-  )
+  const cart = req.signedCookies['cart'] ? req.signedCookies['cart'] : null
+  let productsInCart = null
+  if (cart) {
+    productsInCart = cart.products.reduce(
+      (prev, current) => prev + parseInt(current.quantity),
+      0
+    )
+  }
   let is_logged_in
   if (user) {
     req.flash('login_msg', `You are logged in ${user.name}`)

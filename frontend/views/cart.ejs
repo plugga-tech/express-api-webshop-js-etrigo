@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel="stylesheet" href="/stylesheets/style.css" />
+  </head>
+  <body>
+    <section>
+      <a href="/">Back home</a>
+      <form action="/order" method="post">
+        <input type="text" name="user" value="" hidden />
+        <input type="submit" value="Place order" />
+      </form>
+    </section>
+    <section>
+      <% cart.products.forEach(product => { %>
+      <div>
+        <h1>Product</h1>
+        <p><strong>Name: </strong><%= product.name %></p>
+        <p><strong>Quantity: </strong><%= product.quantity %></p>
+      </div>
+      <% }) %>
+    </section>
+  </body>
+</html>
