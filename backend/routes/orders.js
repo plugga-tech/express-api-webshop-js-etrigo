@@ -108,7 +108,8 @@ router.post('/user', (req, res) => {
   if (process.env.API_KEY === req.body.token) {
     req.app.locals.db
       .collection('orders')
-      .findOne({ user: req.body.user })
+      .find({ user: req.body.user })
+      .toArray()
       .then(user => {
         if (user) {
           res.status(200).json(user)
