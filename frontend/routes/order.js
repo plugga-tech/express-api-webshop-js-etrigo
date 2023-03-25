@@ -13,7 +13,6 @@ router.post('/', async (req, res) => {
       delete product.name
       product.quantity = parseInt(product.quantity)
     })
-    // console.log(JSON.stringify(storedCart))
     fetch('http://localhost:3000/api/orders/add', {
       method: 'POST',
       headers: {
@@ -23,11 +22,10 @@ router.post('/', async (req, res) => {
     })
       .then(response => response.json())
       .then(data => {
-        console.log('one', data)
         if (data.acknowledged) {
           res.clearCookie('cart')
-          req.flash('login_msg', `Your order have been placed`)
-          res.redirect('/')
+          req.flash('order_msg', `Your order have been placed`)
+          res.redirect('/orders')
         } else {
           req.flash('login_msg', `Sorry, your order could not be handled`)
           res.redirect('/')

@@ -13,7 +13,7 @@ POST http://localhost:3000/api/users/
 Content-Type: application/json
 
 {
-  "id": "64198be96fea65b6a90b5094"
+  "id": "641ee86e853961ea69b68c1b"
 }
 
 ###
@@ -35,8 +35,8 @@ POST http://localhost:3000/api/users/login
 Content-Type: application/json
 
 {
-  "email": "test@mail.com",
-  "password": "test"
+  "email": "west@mail.com",
+  "password": "wast"
 }
 
 ###
@@ -51,7 +51,7 @@ GET http://localhost:3000/api/products
 ###
 
 // HÄMTA SPECIFIK PRODUKT
-GET http://localhost:3000/api/products/641a23b653e053b318e13894
+GET http://localhost:3000/api/products/641ee929853961ea69b68c20
 
 ###
 
@@ -60,11 +60,11 @@ POST http://localhost:3000/api/products/add
 Content-Type: application/json
 
 {
-  "name": "Produkt 4",
-  "description": "Beskrivning av produkt 4",
+  "name": "Borrhammare",
+  "description": "Beskrivning av produkt borrhammare",
   "price": 100,
   "lager": 10,
-  "category": "6419f58eaef8e8bfc60f72fd",
+  "category": "641ee8ae853961ea69b68c1c",
   "token": "1234key1234"
 }
 
@@ -84,7 +84,7 @@ POST http://localhost:3000/api/categories/add
 Content-Type: application/json
 
 {
-  "name": "Kategori 1",
+  "name": "Möbler",
   "token": "1234key1234"
 }
 
@@ -114,14 +114,14 @@ POST http://localhost:3000/api/orders/add
 Content-Type: application/json
 
 {
-  "user": "64198be96fea65b6a90b5094",
+  "user": "641eebf6853961ea69b68c25",
   "products": [
     {
-      "productId": "641a23b653e053b318e13894",
+      "productId": "641ee8fc853961ea69b68c1f",
       "quantity": 1
     },
     {
-      "productId": "641a23fc53e053b318e13895",
+      "productId": "641ee929853961ea69b68c20",
       "quantity": 1
     }
   ]
@@ -143,7 +143,7 @@ POST http://localhost:3000/api/orders/user
 Content-Type: application/json
 
 {
-    "user": "64198be96fea65b6a90b5094",
+    "user": "641ee86e853961ea69b68c1b",
     "token": "1234key1234"
 }
 ###

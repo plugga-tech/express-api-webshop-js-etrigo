@@ -24,19 +24,23 @@ router.get('/', async (req, res) => {
   const products = await fetch('http://localhost:3000/api/products').then(
     response => response.json()
   )
-  const categories = await fetch('http://localhost:3000/api/categories').then(
+  let categories = await fetch('http://localhost:3000/api/categories').then(
     response => response.json()
   )
 
-  categories.forEach(categoryData => {
-    categoryData.products = []
-    products.forEach(product => {
-      if (product.category === categoryData._id) {
-        const { category, ...rest } = product
-        categoryData.products.push(rest)
-      }
+  if (!categories.error && !products.error) {
+    categories.forEach(categoryData => {
+      categoryData.products = []
+      products.forEach(product => {
+        if (product.category === categoryData._id) {
+          const { category, ...rest } = product
+          categoryData.products.push(rest)
+        }
+      })
     })
-  })
+  } else {
+    categories = false
+  }
 
   const login_msg = req.flash('login_msg')[0]
   res.render('index', {

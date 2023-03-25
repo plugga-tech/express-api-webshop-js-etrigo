@@ -8,9 +8,10 @@
     <header>
       <% if (is_logged_in) { %>
       <a href="/logout">Logout</a>
+      <a href="/orders">My orders</a>
 
       <% if (cart) { %>
-      <a href="/cart">Your shopping cart (<%= cart %>)</a>
+      <a href="/cart">My shopping cart (<%= cart %>)</a>
       <% } %> <% } else { %>
       <a href="/register">Become member</a>
       <form action="/login" method="post">
@@ -22,7 +23,7 @@
       <div><%= msg %></div>
       <% } %>
     </header>
-    <% if (is_logged_in) { %>
+    <% if (is_logged_in && categories) { %>
     <section class="categories">
       <% categories.forEach(category => { %>
       <div class="category-container">
