@@ -134,7 +134,7 @@ POST http://localhost:3000/api/orders/user
 Content-Type: application/json
 
 {
-    "user": "64198be96fea65b6a90b5094"
+    "user": "64392547d626e5b0ad9ceff7"
 }
 ###
 
@@ -143,7 +143,7 @@ POST http://localhost:3000/api/orders/user
 Content-Type: application/json
 
 {
-    "user": "641ee86e853961ea69b68c1b",
+    "user": "64392547d626e5b0ad9ceff7",
     "token": "1234key1234"
 }
 ###

@@ -12,7 +12,7 @@ router.get('/', async (req, res) => {
       },
       body: JSON.stringify({ user: user.id, token: process.env.API_KEY })
     }).then(response => response.json())
-    if (orders.error) {
+    if (orders.length === 0) {
       req.flash('login_msg', 'You have no orders to show')
       res.redirect('/')
     } else {
